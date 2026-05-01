@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size();
+        auto out = vector(n, 0);
+
+        for (int i = n - 2; i >= 0; --i) {
+            int j = i + 1;
+            while (j < n && temperatures[i] >= temperatures[j]) {
+                if (out[j] == 0) {
+                    j = n;
+                    break;
+                }
+                j += out[j];
+            }
+
+            if (j < n) {
+                out[i] = j - i;
+            }
+        }
+
+        return out;
+    }
+};
